@@ -1,11 +1,12 @@
-public abstract class Sendable {
+public abstract class Sendable<T> {
     private String from;
     private String to;
-
+    private T content;
 
     public Sendable(String from, String to) {
         this.from = from;
         this.to = to;
+
     }
 
     public String getFrom() {
@@ -16,4 +17,7 @@ public abstract class Sendable {
         return to;
     }
 
+    public T getT() {
+        return t;
+    }
 }

@@ -1,19 +1,23 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class MailService<T> implements Consumer<MailMessage> {
-    Map<String, List<T>> map = new HashMap<String, List<T>>();
+    Map<String, List<T>> mailBox;
 
     public Map<String, List<T>> getMailBox() {
-        return  null;
+        mailBox = new HashMap<String, List<T>>() {
+            @Override
+            public List<T> get(Object key) {
+                return super.getOrDefault(key, new LinkedList<T>());
+            }
+        };
+        return mailBox;
     }
 
-
     @Override
-    public void accept(MailMessage mailMessage) {
-        map.computeIfAbsent(key, k -> new ArrayList<>()).add(value)))
+    public void accept(Sendable<T> sendable) {
+        List<T> list = new ArrayList<>();
+        list.add(sendable.getContent());
+        mailBox.put(sendable.getTo(), list);
     }
 }
